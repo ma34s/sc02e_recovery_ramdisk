@@ -68,23 +68,23 @@ persist.radio.adb_log_on=1
 
 
 # Multiple PDN Disable
-persist.telephony.mpdn=false
+#persist.telephony.mpdn=false
 
 # system prop for SIM
-persist.radio.apm_sim_not_pwdn=1
+#persist.radio.apm_sim_not_pwdn=1
 
 # System property for NTT voice input
-com.nttdocomo.android.voiceeditor.defaultime=com.sec.android.inputmethod.iwnnime.japan/.standardcommon.IWnnLanguageSwitcher
+#com.nttdocomo.android.voiceeditor.defaultime=com.sec.android.inputmethod.iwnnime.japan/.standardcommon.IWnnLanguageSwitcher
 # System property for internal model Name
-ro.factory.model=SGH-N025
+#ro.factory.model=SGH-N025
 
 # Docomo LTE Feature Enable
-persist.radio.dcmlte=true
+#persist.radio.dcmlte=true
 
 # Use data service state for signal display
-ro.config.combined_signal=true
+#ro.config.combined_signal=true
 
-persist.radio.add_power_save=1
+#persist.radio.add_power_save=1
 
 #
 # ADDITIONAL_BUILD_PROPERTIES
