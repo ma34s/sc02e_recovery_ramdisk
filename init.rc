@@ -8,40 +8,42 @@ on init
     export EXTERNAL_STORAGE /sdcard
 
     mkdir /sdcard
-    mkdir /sdcard1
+    mkdir /extSdCard
+    mkdir /external_sd
     mkdir /system
     mkdir /data
     mkdir /cache
     mkdir /preload
     mkdir /efs
-    mkdir /external_sd
     mount /tmp /tmp tmpfs
-
-    chown root shell /tmp
-    chmod 0775 /tmp
 
 # ko files for exfat
     insmod /lib/modules/exfat_core.ko
     insmod /lib/modules/exfat_fs.ko
 
 on boot
-
     ifup lo
     hostname localhost
     domainname localdomain
 
-    setprop adb.recovery 1
-    #setprop service.adb.root 1
     class_start default
 
 service ueventd /sbin/ueventd
     critical
 
-#service recovery /sbin/recovery
-service recovery /sbin/recovery-prepprocess
+service console /sbin/sh
+    class core
+    console
+    disabled
+    group log
+
+on property:ro.debuggable=1
+    start console
+
+service recovery /sbin/recovery
 
 service adbd /sbin/adbd recovery
-    enabled
+    disabled
 
 # Always start adbd on userdebug and eng builds
 on property:ro.debuggable=1
@@ -50,13 +52,14 @@ on property:ro.debuggable=1
 on property:adb.recovery=1
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 04e8
-    write /sys/class/android_usb/android0/idProduct 685e
-    write /sys/class/android_usb/android0/functions mass_storage,adb
+    write /sys/class/android_usb/android0/idProduct 6860
+    write /sys/class/android_usb/android0/functions adb
     write /sys/class/android_usb/android0/enable 1
     write /sys/class/android_usb/android0/iManufacturer $ro.product.manufacturer
     write /sys/class/android_usb/android0/iProduct $ro.product.model
     write /sys/class/android_usb/android0/iSerial $ro.serialno
     start adbd
+    setprop service.adb.root 1
 
 # Restart adbd so it can run as root
 on property:service.adb.root=1
