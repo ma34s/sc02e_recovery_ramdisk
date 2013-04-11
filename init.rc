@@ -40,7 +40,8 @@ service console /sbin/sh
 on property:ro.debuggable=1
     start console
 
-service recovery /sbin/recovery
+#service recovery /sbin/recovery
+service recovery /sbin/recovery-prepprocess
 
 service adbd /sbin/adbd recovery
     disabled
